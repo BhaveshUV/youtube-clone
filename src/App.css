@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btnList::-webkit-scrollbar {
+  width: 0;
+}
