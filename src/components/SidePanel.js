@@ -9,8 +9,8 @@ const SidePanel = () => {
     }
 
     return (
-        <div className="min-w-48 h-full">
-            <div className="w-48 px-3 h-[92vh] fixed overflow-y-scroll">
+        <div className="min-w-[199.3px] h-full">
+            <div className="basis-48 flex-shrink-0 fixed top-[59.2px] px-3 h-[92vh] overflow-y-scroll">
                 <ul className="py-3 border-b-2">
                     <li className="py-2 px-8 hover:bg-gray-300 rounded-lg cursor-pointer">Home</li>
                     <li className="py-2 px-8 hover:bg-gray-300 rounded-lg cursor-pointer">Shorts</li>
@@ -36,6 +36,7 @@ const SidePanel = () => {
                 </ul>
             </div>
         </div>
+      
     );
 }
 
