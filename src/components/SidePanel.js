@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const SidePanel = () => {
     const isMenuOpen = useSelector(store => store.isMenuOpen);
@@ -12,7 +13,7 @@ const SidePanel = () => {
         <div className="min-w-[199.3px] h-full">
             <div className="basis-48 flex-shrink-0 fixed top-[59.2px] px-3 h-[92vh] overflow-y-scroll">
                 <ul className="py-3 border-b-2">
-                    <li className="py-2 px-8 hover:bg-gray-300 rounded-lg cursor-pointer">Home</li>
+                    <Link to="/"><li className="py-2 px-8 hover:bg-gray-300 rounded-lg cursor-pointer">Home</li></ Link>
                     <li className="py-2 px-8 hover:bg-gray-300 rounded-lg cursor-pointer">Shorts</li>
                     <li className="py-2 px-8 hover:bg-gray-300 rounded-lg cursor-pointer">Subscriptions</li>
                 </ul>

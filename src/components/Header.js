@@ -13,7 +13,7 @@ const Header = () => {
 
             <div className="flex gap-2 h-8 col-span-1">
                 <img className="cursor-pointer" src="https://icons.veryicon.com/png/o/miscellaneous/linear-icon-45/hamburger-menu-4.png" alt="menu" onClick={toggleMenuHandler}/>
-                <img src="https://vectorseek.com/wp-content/uploads/2021/01/YouTube-Logo-Vector.png" alt="menu" />
+                <img className="h-6 self-center" src="https://vectorseek.com/wp-content/uploads/2021/01/YouTube-Logo-Vector.png" alt="menu" />
             </div>
 
             <div className="flex lg:w-[35rem] md:w-[22rem] justify-self-center col-span-2">

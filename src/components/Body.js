@@ -1,12 +1,12 @@
 import React from "react";
 import SidePanel from "./SidePanel";
-import MainContainer from "./MainContainer";
+import { Outlet } from "react-router-dom";
 
 const Body = () => {
     return (
         <div className="flex w-full">
             <SidePanel />
-            <MainContainer />
+            <Outlet />
         </div>
     );
 }
