@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 
 const SidePanel = () => {
     const isMenuOpen = useSelector(store => store.isMenuOpen);
+    const fixedSidePanel = useSelector(store => store.fixedSidePanel);
 
     if(!isMenuOpen) {
         return null;
     }
 
     return (
-        <div className="min-w-[199.3px] h-full">
+        <div className={`${fixedSidePanel ? "fixed" : ""} min-w-[199.3px] h-full bg-white`}>
             <div className="basis-48 flex-shrink-0 fixed top-[59.2px] px-3 h-[92vh] overflow-y-scroll">
                 <ul className="py-3 border-b-2">
                     <Link to="/"><li className="py-2 px-8 hover:bg-gray-300 rounded-lg cursor-pointer">Home</li></ Link>
