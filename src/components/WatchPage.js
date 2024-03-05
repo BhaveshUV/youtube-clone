@@ -6,14 +6,14 @@ import { useEffect, useState } from "react";
 import { YOUTUBE_VIDEO_BY_ID } from "../utils/constants";
 import VideoInfo from "./VideoInfo";
 import SuggestionList from "./SuggestionList";
+import CommentSection from "./CommentSection";
 
 const WatchPage = () => {
     let [video, setVideo] = useState(null);
     let [params] = useSearchParams();
-    let id = params.get("v");
+    let id = params.get("v");;
 
     let dispatch = useDispatch();
-    dispatch(setFixedSidePanel());
 
     let closeMenuHandler = () => {
         dispatch(closeMenu());
@@ -21,6 +21,10 @@ const WatchPage = () => {
 
     useEffect(() => {
         closeMenuHandler();
+        dispatch(setFixedSidePanel());
+    }, []);
+
+    useEffect(() => {
         getVideo();
     }, [id]);
 
@@ -44,6 +48,7 @@ const WatchPage = () => {
                     allowFullScreen>
                 </iframe>
                 <VideoInfo video={video} />
+                <CommentSection id={id} />
             </div>
             <SuggestionList />
         </div>

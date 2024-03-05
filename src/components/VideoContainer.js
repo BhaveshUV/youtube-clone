@@ -16,7 +16,6 @@ const VideoContainer = () => {
         let dataJson = await data.json();
 
         setVideos(dataJson.items);
-        console.log(dataJson.items);
     }
 
     if(!videos) {

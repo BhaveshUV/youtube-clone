@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SuggestionVideo from "./SuggestionVideo";
 import { YOUTUBE_VIDEOS_API } from "../utils/constants";
-import {Link} from "react-router-dom";
 
 const SuggestionList = () => {
     const [videos, setVideos] = useState(null);

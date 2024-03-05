@@ -3,7 +3,7 @@ import Description from "./Description";
 
 const VideoInfo = ({ video }) => {
     return (
-        <>
+        <div>
             <div className="text-xl font-semibold py-2">{video.items[0]?.snippet?.title}</div>
             <div className="flex justify-between">
                 <div className="flex gap-4 items-center">
@@ -12,7 +12,7 @@ const VideoInfo = ({ video }) => {
                 </div>
                 <div className="flex gap-2">
                     <div className="bg-gray-100 rounded-full flex items-center">
-                        <button className="py-2 pl-2 inline-flex font-medium text-sm h-full rounded-l-full hover:bg-gray-200">
+                        <button className="py-2 pl-2 inline-flex items-center font-medium text-sm h-full rounded-l-full hover:bg-gray-200">
                             <img
                                 className="h-5"
                                 src="https://static.vecteezy.com/system/resources/previews/021/013/524/original/like-icon-on-transparent-background-free-png.png"
@@ -38,11 +38,11 @@ const VideoInfo = ({ video }) => {
                             Share
                         </button>
                     </div>
-                    <button className="px-4 py-2 bg-gray-100 font-bold rounded-full hover:bg-gray-200"><span className="relative bottom-1">. . .</span></button>
+                    <button className="px-4 py-2 bg-gray-100 font-bold rounded-full hover:bg-gray-200"><span className="relative bottom-1 text-nowrap">. . .</span></button>
                 </div>
             </div>
             <Description video={video} />
-        </>
+        </div>
     );
 }
 
