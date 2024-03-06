@@ -8,3 +8,5 @@ export const YOUTUBE_VIDEO_BY_ID = (id) => {
 export const YOUTUBE_COMMENT_API = (id) => {
     return "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=50&videoId=" + id + "&key=" + GOOGLE_KEY;;
 }
+
+export const YOUTUBE_SEARCH_RECOMMENDATION = "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";

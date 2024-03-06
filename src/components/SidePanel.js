@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const SidePanel = () => {
-    const isMenuOpen = useSelector(store => store.isMenuOpen);
-    const fixedSidePanel = useSelector(store => store.fixedSidePanel);
+    const isMenuOpen = useSelector(store => store.app.isMenuOpen);
+    const fixedSidePanel = useSelector(store => store.app.fixedSidePanel);
 
     if(!isMenuOpen) {
         return null;
