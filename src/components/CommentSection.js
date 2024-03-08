@@ -9,25 +9,26 @@ const CommentSection = ({ id }) => {
 
     useEffect(() => {
         getComments();
-    }, [nLevelNested]);
+    }, [nLevelNested, id]);
 
     let getComments = async () => {
-        if(!nLevelNested){
+        if (!nLevelNested) {
             let data = await fetch(YOUTUBE_COMMENT_API(id));
             let dataJson = await data.json();
 
             setComments(dataJson);
-        }else {
+        } else {
             setComments(DUMMY_COMMENTS);
         }
-
     }
 
     if (!comments) {
         return null;
     }
 
-    return (
+    console.log(comments);
+
+    return comments.error ? null : (
         <div className="pb-4">
             <div>
                 <div className="text-lg font-bold py-4 flex items-center">

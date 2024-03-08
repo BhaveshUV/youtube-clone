@@ -1,12 +1,13 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeMenu, setFixedSidePanel } from "../utils/store/appSlice";
 import { useEffect, useState } from "react";
 import { YOUTUBE_VIDEO_BY_ID } from "../utils/constants";
 import VideoInfo from "./VideoInfo";
 import SuggestionList from "./SuggestionList";
 import CommentSection from "./CommentSection";
+import LiveChatWindow from "./LiveChatWindow";
 
 const WatchPage = () => {
     let [video, setVideo] = useState(null);
@@ -50,7 +51,10 @@ const WatchPage = () => {
                 <VideoInfo video={video} />
                 <CommentSection id={id} />
             </div>
-            <SuggestionList />
+            <div className="flex flex-col gap-4">
+                <LiveChatWindow />
+                <SuggestionList />
+            </div>
         </div>
     );
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SuggestionVideo from "./SuggestionVideo";
 import { YOUTUBE_VIDEOS_API } from "../utils/constants";
+import { Link } from "react-router-dom";
 
 const SuggestionList = () => {
     const [videos, setVideos] = useState(null);
@@ -22,7 +23,7 @@ const SuggestionList = () => {
 
     return (
         <div className="flex flex-col gap-2">
-            {videos.map((video) => <a href={`/watch?v=${video.id}`} key={video.id} ><SuggestionVideo video={video}/></a>)}
+            {videos.map((video) => <Link to={`/watch?v=${video.id}`} key={video.id} ><SuggestionVideo video={video}/></Link>)}
         </div>
     );
 };

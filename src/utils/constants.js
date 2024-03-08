@@ -10,3 +10,9 @@ export const YOUTUBE_COMMENT_API = (id) => {
 }
 
 export const YOUTUBE_SEARCH_RECOMMENDATION = "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";
+
+export const YOUTUBE_SEARCH_RESULTS = (q) => {
+    return "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=" + q + "&key=" + GOOGLE_KEY;
+} 
+
+export const LIVE_CHAT_COUNT = 30;

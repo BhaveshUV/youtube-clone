@@ -40,6 +40,10 @@ const Header = () => {
         }
     }, [searchText])
 
+    let handleSearch = (sugg) => {
+        window.location.href = "/results?search_query=" + sugg;
+    }
+
 
     return (
         <div className="grid grid-cols-4 grid-flow-col h-18 px-4 py-2 items-center bg-white sticky top-0 z-10">
@@ -49,7 +53,11 @@ const Header = () => {
                 <img className="h-6 self-center" src="https://vectorseek.com/wp-content/uploads/2021/01/YouTube-Logo-Vector.png" alt="menu" />
             </div>
 
-            <div className={`flex lg:w-[35rem] md:w-[22rem] justify-self-center col-span-2 mr-[37.19px] `}>
+            <form className={`flex lg:w-[35rem] md:w-[22rem] justify-self-center col-span-2 mr-[37.19px] `}
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    window.location.href = "/results?search_query=" + e.target[0].value;
+                }}>
                 <div className={`w-fit flex-grow flex relative border-2 border-gray-300 rounded-l-full has-[:focus]:outline-none has-[:focus]:border-blue-800 ${!showRecommendations ? "ml-[37.19px]" : ""}`}>
                     {!showRecommendations ? null :
                         <img
@@ -67,19 +75,17 @@ const Header = () => {
                         onFocus={() => setShowRecommendations(true)}
                         onBlur={() => setShowRecommendations(false)}
                     />
-                    {!showRecommendations ? null :
-                        <div className="absolute w-full top-11">
-                            <SearchRecommendation list={recommendations} />
-                        </div>
-                    }
+                    <div className={`absolute min-w-full w-fit top-11 cursor-default ${showRecommendations ? "" : "hidden"}`}>
+                        <SearchRecommendation list={recommendations} handleSearch={handleSearch} />
+                    </div>
                 </div>
-                <div className="border-r-2 border-y-2 border-gray-300 flex items-center rounded-r-full">
+                <button className="border-r-2 border-y-2 border-gray-300 flex items-center rounded-r-full">
                     <img
                         className="h-[1.1rem] w-18 flex-shrink-0 px-4"
                         src="https://uxwing.com/wp-content/themes/uxwing/download/user-interface/search-line-icon.png"
                         alt="Search" />
-                </div>
-            </div>
+                </button>
+            </form>
 
             <div className="flex col-span-1 justify-self-end">
                 <img className="h-6" src="https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png" alt="User" />
