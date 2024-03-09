@@ -6,11 +6,11 @@ import WatchPage from './components/WatchPage';
 import SearchResultPage from './components/SearchResultPage';
 import { Provider } from 'react-redux';
 import store from './utils/store/store';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import Error from './components/Error';
 
 function App() {
-  const appRouter = createBrowserRouter([
+  const appRouter = createHashRouter([
     {
       path: "/",
       element: <Body />,

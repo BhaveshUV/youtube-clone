@@ -4,6 +4,7 @@ import { toggleMenu } from "../utils/store/appSlice";
 import { addToCache } from "../utils/store/CacheRecommendationSlice";
 import { YOUTUBE_SEARCH_RECOMMENDATION } from "../utils/constants";
 import SearchRecommendation from "./SearchRecommendation";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
     const [recommendations, setRecommendations] = useState([]);
@@ -41,7 +42,7 @@ const Header = () => {
     }, [searchText])
 
     let handleSearch = (sugg) => {
-        window.location.href = "/results?search_query=" + sugg;
+        window.location.href = "/#/results?search_query=" + sugg;
     }
 
 
@@ -56,7 +57,7 @@ const Header = () => {
             <form className={`flex lg:w-[35rem] md:w-[22rem] justify-self-center col-span-2 mr-[37.19px] `}
                 onSubmit={(e) => {
                     e.preventDefault();
-                    window.location.href = "/results?search_query=" + e.target[0].value;
+                    window.location.href = "/#/results?search_query=" + e.target[0].value;
                 }}>
                 <div className={`w-fit flex-grow flex relative border-2 border-gray-300 rounded-l-full has-[:focus]:outline-none has-[:focus]:border-blue-800 ${!showRecommendations ? "ml-[37.19px]" : ""}`}>
                     {!showRecommendations ? null :
