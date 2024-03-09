@@ -7,12 +7,14 @@ import SearchResultPage from './components/SearchResultPage';
 import { Provider } from 'react-redux';
 import store from './utils/store/store';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Error from './components/Error';
 
 function App() {
   const appRouter = createBrowserRouter([
     {
       path: "/",
       element: <Body />,
+      errorElement: <Error />,
       children: [
         {
           path: "/",
