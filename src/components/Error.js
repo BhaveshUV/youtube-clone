@@ -6,7 +6,7 @@ const Error = () => {
     console.log(error);
     return (
         <div>
-            <div className="text-center">Oops! {error.error.message}</div>
+            <div className="text-center">Oops! {error.error?.message}</div>
             <div className="text-center">{error?.status}: {error?.statusText}</div>
         </div>
     );

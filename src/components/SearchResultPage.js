@@ -17,7 +17,7 @@ const SearchResultPage = () => {
         getVideos();
         dispatch(setFixedSidePanel());
         dispatch(closeMenu());
-    }, [])
+    }, [query])
 
     let getVideos = async () => {
         let data = await fetch(YOUTUBE_SEARCH_RESULTS(query));

@@ -4,7 +4,7 @@ import { toggleMenu } from "../utils/store/appSlice";
 import { addToCache } from "../utils/store/CacheRecommendationSlice";
 import { YOUTUBE_SEARCH_RECOMMENDATION } from "../utils/constants";
 import SearchRecommendation from "./SearchRecommendation";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Header = () => {
     const [recommendations, setRecommendations] = useState([]);
@@ -42,23 +42,25 @@ const Header = () => {
     }, [searchText])
 
     let handleSearch = (sugg) => {
-        window.location.href = "/#/results?search_query=" + sugg;
+        setSearchText(sugg);
+        let search = document.getElementById("searchBox");
+        search.blur();
     }
 
 
     return (
-        <div className="grid grid-cols-4 grid-flow-col h-18 px-4 py-2 items-center bg-white sticky top-0 z-10">
-
+        <div className="grid grid-cols-4 grid-flow-col h-18 px-4 py-2 items-center bg-white sticky top-0 z-10"
+            onSubmit={(e) => {
+                e.target[1].children[0].click();
+                handleSearch(e.target[0].value);
+            }}>
             <div className="flex gap-2 h-8 col-span-1">
                 <img className="cursor-pointer" src="https://icons.veryicon.com/png/o/miscellaneous/linear-icon-45/hamburger-menu-4.png" alt="menu" onClick={toggleMenuHandler} />
                 <img className="h-6 self-center" src="https://vectorseek.com/wp-content/uploads/2021/01/YouTube-Logo-Vector.png" alt="menu" />
             </div>
 
             <form className={`flex lg:w-[35rem] md:w-[22rem] justify-self-center col-span-2 mr-[37.19px] `}
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    window.location.href = "/#/results?search_query=" + e.target[0].value;
-                }}>
+            >
                 <div className={`w-fit flex-grow flex relative border-2 border-gray-300 rounded-l-full has-[:focus]:outline-none has-[:focus]:border-blue-800 ${!showRecommendations ? "ml-[37.19px]" : ""}`}>
                     {!showRecommendations ? null :
                         <img
@@ -67,7 +69,7 @@ const Header = () => {
                             alt=""
                         />
                     }
-                    <input
+                    <input id="searchBox"
                         className=" rounded-l-full px-2 py-2 w-full focus:outline-none "
                         type="text"
                         placeholder="Search"
@@ -81,10 +83,12 @@ const Header = () => {
                     </div>
                 </div>
                 <button className="border-r-2 border-y-2 border-gray-300 flex items-center rounded-r-full">
-                    <img
-                        className="h-[1.1rem] w-18 flex-shrink-0 px-4"
-                        src="https://uxwing.com/wp-content/themes/uxwing/download/user-interface/search-line-icon.png"
-                        alt="Search" />
+                    <Link to={"/results?search_query=" + searchText}>
+                        <img
+                            className="h-[1.1rem] w-18 flex-shrink-0 px-4"
+                            src="https://uxwing.com/wp-content/themes/uxwing/download/user-interface/search-line-icon.png"
+                            alt="Search" />
+                    </Link>
                 </button>
             </form>
 
