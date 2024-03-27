@@ -53,7 +53,7 @@ const Header = () => {
 
     return (
         <>
-            <div className="flex box-content justify-between md:grid md:grid-cols-4 md:grid-flow-col min-h-[3.75rem] max-h-[8svh] max-h-[8vh] h-[3.75rem] px-4 items-center bg-white sticky top-0 z-10"
+            <div className="flex box-content justify-between md:grid md:grid-cols-4 md:grid-flow-col min-h-[3.75rem] max-h-[8dvh] h-[3.75rem] px-4 items-center bg-white sticky top-0 z-10"
                 onSubmit={(e) => {
                     e.preventDefault();
                     e.target[1].children[0].click();

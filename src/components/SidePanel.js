@@ -18,7 +18,7 @@ const SidePanel = () => {
 
     return (
         <div className={`fixed ${fixedSidePanel ? "fixed" : "md:static"} min-w-[199.3px] h-full z-10`}>
-            <div className="basis-48 flex-shrink-0 fixed top-[60px] px-3 h-[93svh] h-[93dvh] overflow-y-scroll bg-white">
+            <div className="basis-48 flex-shrink-0 fixed top-[60px] px-3 h-[93dvh] overflow-y-scroll bg-white">
                 <ul className="py-3 border-b-2">
                     <Link to="/"><li className="py-2 px-8 hover:bg-gray-300 rounded-lg cursor-pointer">Home</li></ Link>
                     <li className="py-2 px-8 hover:bg-gray-300 rounded-lg cursor-pointer">Shorts</li>
