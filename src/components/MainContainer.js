@@ -9,7 +9,7 @@ const MainContainer = () => {
 
     useEffect(() => {
         dispatch(removeFixedSidePanel());
-    }, [])
+    }, [dispatch])
     return (
         <div className="overflow-hidden">
             <ButtonList />

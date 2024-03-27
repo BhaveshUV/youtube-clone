@@ -7,15 +7,14 @@ const SuggestionList = () => {
     const [videos, setVideos] = useState(null);
 
     useEffect(() => {
+        let getVideos = async () => {
+            let data = await fetch(YOUTUBE_VIDEOS_API);
+            let dataJson = await data.json();
+
+            setVideos(dataJson.items);
+        }
         getVideos();
     }, []);
-
-    let getVideos = async () => {
-        let data = await fetch(YOUTUBE_VIDEOS_API);
-        let dataJson = await data.json();
-
-        setVideos(dataJson.items);
-    }
 
     if (!videos) {
         return null;
@@ -23,7 +22,7 @@ const SuggestionList = () => {
 
     return (
         <div className="flex flex-col gap-2">
-            {videos.map((video) => <Link to={`/watch?v=${video.id}`} key={video.id} ><SuggestionVideo video={video}/></Link>)}
+            {videos.map((video) => <Link to={`/watch?v=${video.id}`} key={video.id} ><SuggestionVideo video={video} /></Link>)}
         </div>
     );
 };

@@ -10,7 +10,7 @@ const Description = ({ video }) => {
             console.log(descrip[0].classList);
             descrip[0].classList.remove("max-h-12");
         }
-    }, [isExpanded]);
+    }, [isExpanded, video]);
 
     return (
         <div className="w-full bg-gray-100 rounded-xl mt-4 p-3">

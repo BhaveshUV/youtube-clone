@@ -5,6 +5,9 @@ import { addMessage } from "../utils/store/liveChatSlice";
 import { generateRandomName, generateRandomMessage } from "../utils/helper";
 
 const LiveChatWindow = () => {
+    let dispatch = useDispatch();
+    let messages = useSelector(store => store.liveChat.messages);
+
     useEffect(() => {
         let liveMessages = setInterval(() => {
             dispatch(addMessage({
@@ -16,10 +19,8 @@ const LiveChatWindow = () => {
         return () => {
             clearInterval(liveMessages);
         }
-    }, [])
-
-    let dispatch = useDispatch();
-    let messages = useSelector(store => store.liveChat.messages);
+    }, [dispatch])
+    
     return (
         <div className="h-[500px] rounded-xl border-2 flex flex-col">
             <h1 className="px-4 py-2 border-b-2 rounded-t-xl">Live chat</h1>

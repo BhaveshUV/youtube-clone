@@ -1,18 +1,24 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { closeMenu } from "../utils/store/appSlice";
 
 const SidePanel = () => {
     const isMenuOpen = useSelector(store => store.app.isMenuOpen);
     const fixedSidePanel = useSelector(store => store.app.fixedSidePanel);
+    let dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(closeMenu());
+    }, [dispatch])
 
     if(!isMenuOpen) {
         return null;
     }
 
     return (
-        <div className={`${fixedSidePanel ? "fixed" : ""} min-w-[199.3px] h-full bg-white z-10`}>
-            <div className="basis-48 flex-shrink-0 fixed top-[59.2px] px-3 h-[92vh] overflow-y-scroll">
+        <div className={`fixed ${fixedSidePanel ? "fixed" : "md:static"} min-w-[199.3px] h-full z-10`}>
+            <div className="basis-48 flex-shrink-0 fixed top-[60px] px-3 h-[93svh] h-[93dvh] overflow-y-scroll bg-white">
                 <ul className="py-3 border-b-2">
                     <Link to="/"><li className="py-2 px-8 hover:bg-gray-300 rounded-lg cursor-pointer">Home</li></ Link>
                     <li className="py-2 px-8 hover:bg-gray-300 rounded-lg cursor-pointer">Shorts</li>

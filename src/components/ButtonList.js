@@ -13,7 +13,7 @@ const ButtonList = () => {
     const list = ["All", "Music", "Games", "Films", "Sports", "News", "Live", "Cricket", "Chill-out music", "Football", "Badminton", "Arts", "Speech", "Song-writing", "Quotes", "Comedy", "Acting", "Drama"];
     return (
         <div className="h-14">
-            <div className="grid grid-flow-col gap-2 px-2 items-center bg-white fixed top-[59.2px]" style={{ gridTemplateColumns: "auto auto auto" }}>
+            <div className="grid grid-flow-col gap-2 px-2 items-center bg-white fixed top-[60px]" style={{ gridTemplateColumns: "auto auto auto" }}>
                 <button className="px-4 leading-10 rounded-full bg-gray-100 " onClick={scrollLeft}>&lt;</button>
                 <div className="btnList py-3 overflow-auto flex gap-3">
                     {list.map((name, index) => <Button key={index} name={name} />)}

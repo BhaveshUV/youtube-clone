@@ -8,23 +8,22 @@ const VideoContainer = () => {
     let [videos, setVideos] = useState(null);
 
     useEffect(() => {
+        const getVideos = async () => {
+            let data = await fetch(YOUTUBE_VIDEOS_API);
+            let dataJson = await data.json();
+
+            setVideos(dataJson.items);
+        }
         getVideos();
     }, [])
 
-    const getVideos = async () => {
-        let data = await fetch(YOUTUBE_VIDEOS_API);
-        let dataJson = await data.json();
-
-        setVideos(dataJson.items);
-    }
-
-    if(!videos) {
+    if (!videos) {
         return null;
     }
 
     return (
-        <div className="flex flex-wrap py-4 px-6 gap-4">
-            {videos.map((video, index) => <Link to={`/watch?v=${video.id}`} key={video.id}><VideoCard info={video}/></Link>)}
+        <div className="flex flex-wrap py-4 px-6 gap-4 justify-center md:justify-start">
+            {videos.map((video, index) => <Link to={`/watch?v=${video.id}`} key={video.id}><VideoCard info={video} /></Link>)}
         </div>
     );
 }

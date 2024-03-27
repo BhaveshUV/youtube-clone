@@ -4,29 +4,31 @@ import { toggleMenu } from "../utils/store/appSlice";
 import { addToCache } from "../utils/store/CacheRecommendationSlice";
 import { YOUTUBE_SEARCH_RECOMMENDATION } from "../utils/constants";
 import SearchRecommendation from "./SearchRecommendation";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const Header = () => {
     const [recommendations, setRecommendations] = useState([]);
     const [showRecommendations, setShowRecommendations] = useState(false);
     const [searchText, setSearchText] = useState("");
     const cache = useSelector(store => store.cacheRecommendations.cache);
+    let [params] = useSearchParams();
+    let id = params.get("v");;
+    // console.log(id);
 
     let dispatch = useDispatch();
     const toggleMenuHandler = () => {
         dispatch(toggleMenu());
     }
 
-    let getData = async (text) => {
-        let data = await fetch(YOUTUBE_SEARCH_RECOMMENDATION + text);
-        let dataJson = await data.json();
-
-        setRecommendations(dataJson[1]);
-        console.log({ [text]: dataJson[1] });
-        dispatch(addToCache({ [text]: dataJson[1] }));
-    }
-
     useEffect(() => {
+        let getData = async (text) => {
+            let data = await fetch(YOUTUBE_SEARCH_RECOMMENDATION + text);
+            let dataJson = await data.json();
+
+            setRecommendations(dataJson[1]);
+            console.log({ [text]: dataJson[1] });
+            dispatch(addToCache({ [text]: dataJson[1] }));
+        }
         let timer = null;
         if (cache[searchText]) {
             setRecommendations(cache[searchText]);
@@ -39,64 +41,100 @@ const Header = () => {
         return () => {
             clearTimeout(timer)
         }
-    }, [searchText])
+    }, [searchText, cache, dispatch])
 
     let handleSearch = (sugg) => {
         setSearchText(sugg);
-        let search = document.getElementById("searchBox");
-        search.blur();
+        let search = document.getElementsByClassName("searchBox");
+        search[0].blur();
+        search[1].blur();
     }
 
 
     return (
-        <div className="grid grid-cols-4 grid-flow-col h-18 px-4 py-2 items-center bg-white sticky top-0 z-10"
-            onSubmit={(e) => {
-                e.target[1].children[0].click();
-                handleSearch(e.target[0].value);
-            }}>
-            <div className="flex gap-2 h-8 col-span-1">
-                <img className="cursor-pointer" src="https://icons.veryicon.com/png/o/miscellaneous/linear-icon-45/hamburger-menu-4.png" alt="menu" onClick={toggleMenuHandler} />
-                <img className="h-6 self-center" src="https://vectorseek.com/wp-content/uploads/2021/01/YouTube-Logo-Vector.png" alt="menu" />
-            </div>
-
-            <form className={`flex lg:w-[35rem] md:w-[22rem] justify-self-center col-span-2 mr-[37.19px] `}
-            >
-                <div className={`w-fit flex-grow flex relative border-2 border-gray-300 rounded-l-full has-[:focus]:outline-none has-[:focus]:border-blue-800 ${!showRecommendations ? "ml-[37.19px]" : ""}`}>
-                    {!showRecommendations ? null :
-                        <img
-                            className="h-[1.1rem] w-18 flex-shrink-0 self-center pl-4 pr-1"
-                            src="https://uxwing.com/wp-content/themes/uxwing/download/user-interface/search-line-icon.png"
-                            alt=""
-                        />
-                    }
-                    <input id="searchBox"
-                        className=" rounded-l-full px-2 py-2 w-full focus:outline-none "
-                        type="text"
-                        placeholder="Search"
-                        value={searchText}
-                        onChange={(e) => setSearchText(e.target.value)}
-                        onFocus={() => setShowRecommendations(true)}
-                        onBlur={() => setShowRecommendations(false)}
-                    />
-                    <div className={`absolute min-w-full w-fit top-11 cursor-default ${showRecommendations ? "" : "hidden"}`}>
-                        <SearchRecommendation list={recommendations} handleSearch={handleSearch} />
-                    </div>
+        <>
+            <div className="flex box-content justify-between md:grid md:grid-cols-4 md:grid-flow-col min-h-[3.75rem] max-h-[8svh] max-h-[8vh] h-[3.75rem] px-4 items-center bg-white sticky top-0 z-10"
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    e.target[1].children[0].click();
+                    handleSearch(e.target[0].value);
+                }}>
+                <div className="flex gap-2 h-8 col-span-1">
+                    <img className="cursor-pointer" src="https://icons.veryicon.com/png/o/miscellaneous/linear-icon-45/hamburger-menu-4.png" alt="menu" onClick={toggleMenuHandler} />
+                    <img className="hidden md:inline-block h-6 self-center" src="https://vectorseek.com/wp-content/uploads/2021/01/YouTube-Logo-Vector.png" alt="menu" />
                 </div>
-                <button className="border-r-2 border-y-2 border-gray-300 flex items-center rounded-r-full">
-                    <Link to={"/results?search_query=" + searchText}>
-                        <img
-                            className="h-[1.1rem] w-18 flex-shrink-0 px-4"
-                            src="https://uxwing.com/wp-content/themes/uxwing/download/user-interface/search-line-icon.png"
-                            alt="Search" />
-                    </Link>
-                </button>
-            </form>
+                <img className="md:hidden h-6 self-center" src="https://vectorseek.com/wp-content/uploads/2021/01/YouTube-Logo-Vector.png" alt="menu" />
 
-            <div className="flex col-span-1 justify-self-end">
-                <img className="h-6" src="https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png" alt="User" />
+                <form className={`hidden md:flex lg:w-[35rem] md:w-[22rem] justify-self-center col-span-2 mr-[37.19px] `}
+                >
+                    <div className={`w-fit flex-grow flex relative border-2 border-gray-300 rounded-l-full has-[:focus]:outline-none has-[:focus]:border-blue-800 ${!showRecommendations ? "ml-[37.19px]" : ""}`}>
+                        {!showRecommendations ? null :
+                            <img
+                                className="h-[1.1rem] w-18 flex-shrink-0 self-center pl-4 pr-1"
+                                src="https://uxwing.com/wp-content/themes/uxwing/download/user-interface/search-line-icon.png"
+                                alt=""
+                            />
+                        }
+                        <input
+                            className="searchBox rounded-l-full px-2 py-2 w-full focus:outline-none "
+                            type="text"
+                            placeholder="Search"
+                            value={searchText}
+                            onChange={(e) => setSearchText(e.target.value)}
+                            onFocus={() => setShowRecommendations(true)}
+                            onBlur={() => setShowRecommendations(false)}
+                        />
+                        <div className={`absolute min-w-full w-fit top-11 cursor-default ${showRecommendations ? "" : "hidden"}`}>
+                            <SearchRecommendation list={recommendations} handleSearch={handleSearch} />
+                        </div>
+                    </div>
+                    <button className="border-r-2 border-y-2 border-gray-300 flex items-center rounded-r-full">
+                        <Link to={"/results?search_query=" + searchText}>
+                            <img
+                                className="h-[1.1rem] w-18 flex-shrink-0 px-4"
+                                src="https://uxwing.com/wp-content/themes/uxwing/download/user-interface/search-line-icon.png"
+                                alt="Search" />
+                        </Link>
+                    </button>
+                </form>
+
+                <div className="flex col-span-1 justify-self-end">
+                    <img className="h-6" src="https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png" alt="User" />
+                </div>
+
             </div>
-
-        </div>
+            <div>
+                <form className={`md:hidden relative ${id ? "top-1" : "top-[3.75rem]"} flex lg:w-[35rem] md:w-[22rem] justify-self-center col-span-2 mx-4`}
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        handleSearch(e.target[0].value);
+                        e.target[1].children[0].click();
+                    }}>
+                    <div className={`w-fit flex-grow flex relative border-2 border-gray-300 rounded-l-full has-[:focus]:outline-none has-[:focus]:border-blue-800`}>
+                        <input 
+                            className="searchBox rounded-l-full px-2 py-2 w-full focus:outline-none "
+                            type="text"
+                            placeholder="Search"
+                            value={searchText}
+                            onChange={(e) => setSearchText(e.target.value)}
+                            onFocus={() => setShowRecommendations(true)}
+                            onBlur={() => setShowRecommendations(false)}
+                        />
+                        <div className={`absolute min-w-full w-fit top-11 cursor-default ${showRecommendations ? "" : "hidden"}`}>
+                            <SearchRecommendation list={recommendations} handleSearch={handleSearch} />
+                        </div>
+                    </div>
+                    <button className="border-r-2 border-y-2 border-gray-300 flex items-center rounded-r-full">
+                        <Link to={"/results?search_query=" + searchText}>
+                            <img
+                                className="h-[1.1rem] w-18 flex-shrink-0 px-4"
+                                src="https://uxwing.com/wp-content/themes/uxwing/download/user-interface/search-line-icon.png"
+                                alt="Search" />
+                        </Link>
+                    </button>
+                </form>
+            </div>
+        </>
     );
 }
 

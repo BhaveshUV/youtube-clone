@@ -5,7 +5,7 @@ const VideoInfo = ({ video }) => {
     return (
         <div>
             <div className="text-xl font-semibold py-2">{video.items[0]?.snippet?.title}</div>
-            <div className="flex justify-between">
+            <div className="flex flex-wrap md:flex-nowrap justify-between gap-2">
                 <div className="flex gap-4 items-center">
                     <span className="font-medium">{video.items[0]?.snippet?.channelTitle}</span>
                     <button className="px-4 py-2 bg-black text-white rounded-full font-medium">Subscribe</button>
