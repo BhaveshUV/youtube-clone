@@ -22,12 +22,16 @@ const Header = () => {
 
     useEffect(() => {
         let getData = async (text) => {
-            let data = await fetch(YOUTUBE_SEARCH_RECOMMENDATION + text);
-            let dataJson = await data.json();
-
-            setRecommendations(dataJson[1]);
-            console.log({ [text]: dataJson[1] });
-            dispatch(addToCache({ [text]: dataJson[1] }));
+            try{
+                let data = await fetch(YOUTUBE_SEARCH_RECOMMENDATION + text);
+                let dataJson = await data.json();
+    
+                setRecommendations(dataJson[1]);
+                console.log({ [text]: dataJson[1] });
+                dispatch(addToCache({ [text]: dataJson[1] }));
+            } catch (e){
+                window.alert("Please install 'Allow CORS' extension to use search recommendation");
+            }
         }
         let timer = null;
         if (cache[searchText]) {
