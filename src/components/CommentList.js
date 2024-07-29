@@ -5,7 +5,7 @@ const CommentList = ({ comments }) => {
     return (
         <div>
             {comments.map((c, index) => {
-                return <Comment key={index} commentThread={c} />
+                return <Comment key={c.id} commentThread={c} />
             })}
         </div>
     );

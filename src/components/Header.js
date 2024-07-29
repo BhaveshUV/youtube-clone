@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/store/appSlice";
 import { addToCache } from "../utils/store/CacheRecommendationSlice";
 import { YOUTUBE_SEARCH_RECOMMENDATION } from "../utils/constants";
 import SearchRecommendation from "./SearchRecommendation";
 import { Link, useSearchParams } from "react-router-dom";
+import SearchContext from "../utils/SearchContext";
 
-const Header = () => {
+const Header = ({searchText, setSearchText}) => {
     const [recommendations, setRecommendations] = useState([]);
     const [showRecommendations, setShowRecommendations] = useState(false);
-    const [searchText, setSearchText] = useState("");
     const cache = useSelector(store => store.cacheRecommendations.cache);
     let [params] = useSearchParams();
     let id = params.get("v");;
     // console.log(id);
-
-    let dispatch = useDispatch();
+    
+    let dispatch = useDispatch();    
     const toggleMenuHandler = () => {
         dispatch(toggleMenu());
     }
@@ -30,7 +30,7 @@ const Header = () => {
                 console.log({ [text]: dataJson[1] });
                 dispatch(addToCache({ [text]: dataJson[1] }));
             } catch (e){
-                window.alert("Please install 'Allow CORS' extension to use search recommendation");
+                console.error(e, "To resolve this error please install 'Allow CORS' extension");
             }
         }
         let timer = null;
@@ -47,22 +47,15 @@ const Header = () => {
         }
     }, [searchText, cache, dispatch])
 
-    let handleSearch = (sugg) => {
-        setSearchText(sugg);
-        let search = document.getElementsByClassName("searchBox");
-        search[0].blur();
-        search[1].blur();
-    }
+    useEffect(() => {
+        window.alert("Please install 'Allow CORS' extension to use search recommendation functionality");
+    }, [dispatch])
 
+    let handleSearch = useContext(SearchContext);
 
     return (
         <>
-            <div className="flex box-content justify-between md:grid md:grid-cols-4 md:grid-flow-col min-h-[3.75rem] max-h-[8dvh] h-[3.75rem] px-4 items-center bg-white sticky top-0 z-10"
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    e.target[1].children[0].click();
-                    handleSearch(e.target[0].value);
-                }}>
+            <div className="flex box-content justify-between md:grid md:grid-cols-4 md:grid-flow-col min-h-[3.75rem] max-h-[8dvh] h-[3.75rem] px-4 items-center bg-white sticky top-0 z-10">
                 <div className="flex gap-2 h-8 col-span-1">
                     <img className="cursor-pointer" src="https://icons.veryicon.com/png/o/miscellaneous/linear-icon-45/hamburger-menu-4.png" alt="menu" onClick={toggleMenuHandler} />
                     <img className="hidden md:inline-block h-6 self-center" src="https://vectorseek.com/wp-content/uploads/2021/01/YouTube-Logo-Vector.png" alt="menu" />

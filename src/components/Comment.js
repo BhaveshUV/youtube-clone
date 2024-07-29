@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Comment = ({ commentThread, isReply }) => {
+    const [isLiked, setIsLiked] = useState(null);
+
     let comment
-    if(isReply) {
+    if (isReply) {
         comment = commentThread.snippet;
     }
     else {
@@ -16,18 +18,24 @@ const Comment = ({ commentThread, isReply }) => {
                     <div className="text-sm font-medium">{comment.authorDisplayName}</div>
                     <div className="text-sm">{comment.textOriginal}</div>
                     <div className="flex items-center gap-2">
-                        <button className="py-2 inline-flex text-sm">
+                        <button className="py-2 inline-flex text-sm"
+                            onClick={() => {
+                                isLiked ? setIsLiked(null) : setIsLiked(true);
+                            }}>
                             <img
-                                className="box-content h-5 hover:bg-gray-200 py-1 rounded-full"
-                                src="https://static.vecteezy.com/system/resources/previews/021/013/524/original/like-icon-on-transparent-background-free-png.png"
+                                className={`${isLiked ? "h-7 px-[2.4935px]" : "h-5 py-1"} box-content hover:bg-gray-200 rounded-full`}
+                                src={`${isLiked ? "https://static.thenounproject.com/png/1856639-200.png" : "https://static.vecteezy.com/system/resources/previews/021/013/524/original/like-icon-on-transparent-background-free-png.png"}`}
                                 alt="like"
                             />
-                            <span className="self-center">{comment.likeCount}</span>
+                            <span className="self-center">{isLiked ? comment.likeCount + 1 : comment.likeCount}</span>
                         </button>
-                        <button className="py-2 inline-flex text-sm">
+                        <button className="py-2 inline-flex text-sm"
+                            onClick={() => {
+                                isLiked === false ? setIsLiked(null) : setIsLiked(false);
+                            }}>
                             <img
-                                className="box-content h-5 hover:bg-gray-200 py-1 rounded-full rotate-180"
-                                src="https://static.vecteezy.com/system/resources/previews/021/013/524/original/like-icon-on-transparent-background-free-png.png"
+                                className={`${isLiked === false ? "h-7 px-[2.4935px]" : "h-5 py-1"} box-content hover:bg-gray-200 rounded-full rotate-180`}
+                                src={`${isLiked === false ? "https://static.thenounproject.com/png/1856639-200.png" : "https://static.vecteezy.com/system/resources/previews/021/013/524/original/like-icon-on-transparent-background-free-png.png"}`}
                                 alt="dislike"
                             />
                         </button>
@@ -44,7 +52,7 @@ const Comment = ({ commentThread, isReply }) => {
                     </div>
                     <div>
                         {commentThread.replies.comments.map((c, index) => {
-                            return <Comment key={index} commentThread={c} isReply={true}/>
+                            return <Comment key={index} commentThread={c} isReply={true} />
                         })}
                     </div>
                 </div>

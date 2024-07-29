@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Description from "./Description";
 
 const VideoInfo = ({ video }) => {
+    const [isLiked, setIsLiked] = useState(null);
+
     return (
         <div>
             <div className="text-xl font-semibold py-2">{video.items[0]?.snippet?.title}</div>
@@ -12,18 +14,24 @@ const VideoInfo = ({ video }) => {
                 </div>
                 <div className="flex gap-2">
                     <div className="bg-gray-100 rounded-full flex items-center">
-                        <button className="py-2 pl-2 inline-flex items-center font-medium text-sm h-full rounded-l-full hover:bg-gray-200">
+                        <button className="py-2 pl-2 inline-flex items-center font-medium text-sm h-full rounded-l-full hover:bg-gray-200"
+                            onClick={() => {
+                                isLiked ? setIsLiked(null) : setIsLiked(true);
+                            }}>
                             <img
-                                className="h-5"
-                                src="https://static.vecteezy.com/system/resources/previews/021/013/524/original/like-icon-on-transparent-background-free-png.png"
+                                className={`${isLiked ? "h-7 px-[2.4935px]" : "h-5 py-1"} box-content`}
+                                src={`${isLiked ? "https://static.thenounproject.com/png/1856639-200.png" : "https://static.vecteezy.com/system/resources/previews/021/013/524/original/like-icon-on-transparent-background-free-png.png"}`}
                                 alt="like"
                             />
-                            <span className="border-gray-400 border-r-[1px] pr-4 self-center">{video.items[0]?.statistics?.likeCount}</span>
+                            <span className="border-gray-400 border-r-[1px] pr-4 self-center">{isLiked ? Number(video.items[0]?.statistics?.likeCount) + 1 : video.items[0]?.statistics?.likeCount}</span>
                         </button>
-                        <button className="py-2 pl-2 pr-4 inline-flex font-medium text-sm rounded-r-full hover:bg-gray-200">
+                        <button className="py-2 pl-2 pr-4 inline-flex font-medium text-sm rounded-r-full hover:bg-gray-200"
+                            onClick={() => {
+                                isLiked === false ? setIsLiked(null) : setIsLiked(false);
+                            }}>
                             <img
-                                className="h-5 rotate-180"
-                                src="https://static.vecteezy.com/system/resources/previews/021/013/524/original/like-icon-on-transparent-background-free-png.png"
+                                className={`${isLiked === false ? "h-7 px-[2.4935px]" : "h-5 py-1"} box-content rotate-180`}
+                                src={`${isLiked === false ? "https://static.thenounproject.com/png/1856639-200.png" : "https://static.vecteezy.com/system/resources/previews/021/013/524/original/like-icon-on-transparent-background-free-png.png"}`}
                                 alt="dislike"
                             />
                         </button>
